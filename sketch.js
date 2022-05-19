@@ -1,3 +1,6 @@
+// list of all point objects on currently displayed
+let pointsOnCanvas = [];
+
 function setup() {
   let myCanvas = createCanvas(1000, 600);
   myCanvas.parent("container");
@@ -9,7 +12,7 @@ function draw() {}
 function generatePoints(number) {
   // clear canvas
   clear();
-  // generate X number of points to
+  // generate X number of points
   const canvasPadding = 25;
   for (let i = 0; i < number; i++) {
     const randX = random(canvasPadding, width - canvasPadding);
@@ -22,6 +25,9 @@ function generatePoints(number) {
       stroke("#000");
       strokeWeight(6);
     }
-    point(randX, randY);
+
+    let pt = new Point(i, randX, randY);
+    pointsOnCanvas[i] = pt;
+    pt.display();
   }
 }

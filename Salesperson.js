@@ -1,0 +1,7 @@
+/*
+- 
+*/
+
+class Salesperson {
+  constructor() {}
+}
