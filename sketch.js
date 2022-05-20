@@ -37,4 +37,5 @@ function generatePoints() {
   ppn = new Population(10);
   ppn.randomizeAllRoutes();
   ppn.drawAllPaths();
+  ppn.calculateFitnesses();
 }

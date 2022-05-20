@@ -19,4 +19,10 @@ class Population {
       sp.drawPath(defaultPathColor);
     });
   }
+
+  calculateFitnesses() {
+    this.salespeople.forEach((sp) => {
+      sp.calculateFitness();
+    });
+  }
 }

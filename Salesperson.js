@@ -11,8 +11,11 @@ class Salesperson {
     this.route = route;
   }
 
-  // create a randomized route using Durstenfeld shuffle algorithm w/ same starting point
-  // essentially shuffling all elements except first element
+  /* 
+  - create a randomized route using Durstenfeld shuffle algorithm w/ same starting point
+  - essentially shuffling all elements except first element
+  */
+
   randomizeRoute(route) {
     let array = [...route];
     let startingPoint = array.shift();
@@ -35,5 +38,28 @@ class Salesperson {
       stroke(color);
       line(p1.posX, p1.posY, p2.posX, p2.posY);
     }
+  }
+
+  /* 
+  - calculate the "fitness" of a salesperson (how good a route is)
+  - efficiency of route depends on 1 main factor: distance 
+  - lower the distance, the shorter the time it takes to travel b/w all points
+  - a good route is the the route with the shortest distance 
+  */
+
+  calculateFitness() {
+    // find sum of distances of route
+    let routeDist = 0;
+    for (let i = 1; i < this.route.length; i++) {
+      routeDist += dist(
+        this.route[i - 1].getPosX,
+        this.route[i - 1].getPosY,
+        this.route[i].getPosX,
+        this.route[i].getPosY
+      );
+    }
+    // taking inverse --> smaller distance means higher fitness
+    // squaring routeDist --> increases weight of shorter path
+    let fitness = 1.0 / (routeDist * routeDist);
   }
 }
