@@ -1,7 +1,3 @@
-/*
-- 
-*/
-
 class Salesperson {
   constructor() {
     this.route = pointsOnCanvas;
@@ -37,7 +33,6 @@ class Salesperson {
       let p2 = this.route[i];
       strokeWeight(1);
       stroke(color);
-      console.log("p1: ", p1, "p2: ", p2);
       line(p1.posX, p1.posY, p2.posX, p2.posY);
     }
   }

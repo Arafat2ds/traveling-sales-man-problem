@@ -1,6 +1,7 @@
 // list of all point objects on currently displayed
 let pointsOnCanvas = [];
 const numberOfPoints = 10;
+const defaultPathColor = "rgba(0,0,0,0.2)";
 
 function setup() {
   let myCanvas = createCanvas(1000, 600);
@@ -32,12 +33,8 @@ function generatePoints() {
     pt.display();
   }
 
-  let sp = new Salesperson();
-  let sp2 = new Salesperson();
-  let sp3 = new Salesperson();
-  sp.drawPath("green");
-  // sp2.setRoute = sp2.randomizeRoute(sp2.getRoute);
-  // sp2.drawPath("blue");
-  // sp3.setRoute = sp3.randomizeRoute(sp3.getRoute);
-  // sp3.drawPath("orange");
+  // instantiate population for current config
+  ppn = new Population(10);
+  ppn.randomizeAllRoutes();
+  ppn.drawAllPaths();
 }
