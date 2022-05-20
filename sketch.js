@@ -30,4 +30,13 @@ function generatePoints(number) {
     pointsOnCanvas[i] = pt;
     pt.display();
   }
+
+  let sp = new Salesperson();
+  let sp2 = new Salesperson();
+  let sp3 = new Salesperson();
+  sp.drawPath("green");
+  sp2.setRoute = sp2.randomizeRoute(sp2.getRoute);
+  sp2.drawPath("blue");
+  sp3.setRoute = sp3.randomizeRoute(sp3.getRoute);
+  sp3.drawPath("orange");
 }
