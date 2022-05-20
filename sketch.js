@@ -1,20 +1,21 @@
 // list of all point objects on currently displayed
 let pointsOnCanvas = [];
+const numberOfPoints = 10;
 
 function setup() {
   let myCanvas = createCanvas(1000, 600);
   myCanvas.parent("container");
-  generatePoints(10);
+  generatePoints(numberOfPoints);
 }
 
 function draw() {}
 
-function generatePoints(number) {
+function generatePoints() {
   // clear canvas
   clear();
   // generate X number of points
   const canvasPadding = 25;
-  for (let i = 0; i < number; i++) {
+  for (let i = 0; i < numberOfPoints; i++) {
     const randX = random(canvasPadding, width - canvasPadding);
     const randY = random(canvasPadding, height - canvasPadding);
     // differentiate the starting point
@@ -35,8 +36,8 @@ function generatePoints(number) {
   let sp2 = new Salesperson();
   let sp3 = new Salesperson();
   sp.drawPath("green");
-  sp2.setRoute = sp2.randomizeRoute(sp2.getRoute);
-  sp2.drawPath("blue");
-  sp3.setRoute = sp3.randomizeRoute(sp3.getRoute);
-  sp3.drawPath("orange");
+  // sp2.setRoute = sp2.randomizeRoute(sp2.getRoute);
+  // sp2.drawPath("blue");
+  // sp3.setRoute = sp3.randomizeRoute(sp3.getRoute);
+  // sp3.drawPath("orange");
 }
