@@ -3,6 +3,8 @@ class Population {
   totalFitness;
   generationCounter = 1;
   bestSalespersonIndex;
+  bestFitness = 0;
+  bestSalesperson;
 
   constructor(size) {
     for (let i = 0; i < size; i++) {
@@ -35,24 +37,20 @@ class Population {
 
     // add best salesperson from previous generation
     this.setBestSalesperson();
-    console.log(
-      "BEST: ",
-      this.salespeople[this.bestSalespersonIndex].getFitness
-    );
-    nextGen.push(this.createChild(this.salespeople[this.bestSalespersonIndex]));
-
+    nextGen[0] = this.createChild(this.salespeople[this.bestSalespersonIndex]);
+    nextGen[0].isBest = true;
     // sum fitnesses of all salespersons (total pool)
     this.totalFitness = 0;
     this.salespeople.forEach((sp) => {
       this.totalFitness += sp.getFitness;
     });
 
-    for (let i = 0; i < this.salespeople.length; i++) {
+    for (let i = 1; i < this.salespeople.length; i++) {
       // randomly choose parent from the population
       let parent = this.selectRandomParent();
       // create child from parent
       let child = this.createChild(parent);
-      nextGen.push(child);
+      nextGen[i] = child;
     }
 
     this.salespeople = nextGen.slice(0);
@@ -82,9 +80,9 @@ class Population {
   }
 
   mutateAll() {
-    this.salespeople.forEach((sp) => {
-      sp.mutate();
-    });
+    for (let i = 1; i < this.salespeople.length; i++) {
+      this.salespeople[i].mutate();
+    }
   }
 
   // prevent de-evolution; randomization causes generations to do worse than before
@@ -96,7 +94,13 @@ class Population {
         maxFitness = this.salespeople[i].getFitness;
         maxIndex = i;
       }
+
+      if (maxFitness > this.bestFitness) {
+        this.bestFitness = maxFitness;
+      }
     }
+
+    console.log(1.0 / this.bestFitness);
 
     this.bestSalespersonIndex = maxIndex;
   }

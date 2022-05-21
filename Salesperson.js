@@ -2,6 +2,8 @@ class Salesperson {
   constructor() {
     this.route = pointsOnCanvas;
     this.fitness = 0;
+    this.isBest = false;
+    this.distance = 0;
   }
 
   get getRoute() {
@@ -39,8 +41,12 @@ class Salesperson {
     for (let i = 1; i < this.route.length; i++) {
       let p1 = this.route[i - 1];
       let p2 = this.route[i];
-      strokeWeight(1);
-      stroke(color);
+      if (this.isBest) {
+        stroke("rgba(204, 255, 204, 0.4)");
+      } else {
+        strokeWeight(1);
+        stroke(color);
+      }
       line(p1.posX, p1.posY, p2.posX, p2.posY);
     }
   }
@@ -66,6 +72,7 @@ class Salesperson {
     // taking inverse --> smaller distance means higher fitness
     //! squaring routeDist --> increases weight of shorter path
     this.fitness = 1.0 / routeDist;
+    this.distance = routeDist;
   }
 
   // mutate salesperson to provide "genetic variation" through adding a randomization factor
@@ -76,19 +83,20 @@ class Salesperson {
       let mutationChance = Math.random();
       if (mutationChance < M_RATE) {
         // randomly shifting one pathway
-        this.shiftRoute();
-        // console.log("MUTATED");
+        this.setRoute = this.shiftRoute();
       }
     }
   }
 
   shiftRoute() {
+    let arr = this.route.slice(0);
     // generate index from 1 to NUM_OF_POINTS
-    let rdx1 = Math.floor(Math.random() * (this.route.length - 1)) + 1;
-    let rdx2 = Math.floor(Math.random() * (this.route.length - 1)) + 1;
+    let rdx1 = Math.floor(Math.random() * (arr.length - 1)) + 1;
+    let rdx2 = Math.floor(Math.random() * (arr.length - 1)) + 1;
     // swap points
-    let temp = this.route[rdx1];
-    this.route[rdx1] = this.route[rdx2];
-    this.route[rdx2] = temp;
+    let temp = arr[rdx1];
+    arr[rdx1] = arr[rdx2];
+    arr[rdx2] = temp;
+    return arr;
   }
 }

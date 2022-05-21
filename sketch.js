@@ -14,10 +14,17 @@ function draw() {
   if (allowNextGeneration) {
     // implement genetic algorithm
     ppn.calculateFitnesses();
+    console.log("PREV GEN: ", ppn.salespeople);
     ppn.naturalSelection();
     ppn.mutateAll();
-    // console.log(ppn.generationCounter, ": ", ppn.totalFitness);
+    console.log("NEXT GEN: ", ppn.salespeople);
+    console.log("GEN: ", ppn.generationCounter);
+    clear();
+    drawPoints();
+    ppn.drawAllPaths();
   }
+
+  updateInfo();
 }
 
 function generateConfig() {
@@ -28,19 +35,11 @@ function generateConfig() {
   for (let i = 0; i < NUMBER_OF_POINTS; i++) {
     const randX = random(canvasPadding, width - canvasPadding);
     const randY = random(canvasPadding, height - canvasPadding);
-    // differentiate the starting point
-    if (i == 0) {
-      stroke("#D32F2F");
-      strokeWeight(10);
-    } else {
-      stroke("#000");
-      strokeWeight(6);
-    }
-
     let pt = new Point(i, randX, randY);
     pointsOnCanvas[i] = pt;
-    pt.display();
   }
+
+  drawPoints();
 
   // instantiate population for current config
   ppn = new Population(10);
@@ -61,3 +60,19 @@ function toggleEvolution() {
     allowNextGeneration = false;
   }
 }
+
+function drawPoints() {
+  for (let i = 0; i < pointsOnCanvas.length; i++) {
+    // differentiate the starting point
+    if (i == 0) {
+      stroke("#D32F2F");
+      strokeWeight(10);
+    } else {
+      stroke("#000");
+      strokeWeight(6);
+    }
+    pointsOnCanvas[i].display();
+  }
+}
+
+function updateInfo() {}
