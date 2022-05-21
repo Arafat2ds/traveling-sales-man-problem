@@ -16,8 +16,10 @@
   <body>
     <main>
       <div id="container""></div>
-      <button class="btn" type="button" onclick="generatePoints()">Generate<span class="material-icons" id="loop-icon">loop</span>
-      </button>
+      <div class="row">
+        <button class="btn btn-green" id="generate-btn"type="button" onclick="generateConfig()">Generate<span class="material-icons" id="loop-icon">loop</span></button>
+        <button class="btn btn-blue" id="start-btn" type="button" onclick="toggleEvolution()">Start<span class="material-icons" id="play-icon">play_arrow</span></button>
+      </div>
     </main>
   </body>
 </html>

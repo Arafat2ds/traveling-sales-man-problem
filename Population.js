@@ -16,7 +16,7 @@ class Population {
 
   drawAllPaths() {
     this.salespeople.forEach((sp) => {
-      sp.drawPath(defaultPathColor);
+      sp.drawPath(DEFAULT_PATH_COLOR);
     });
   }
 
@@ -24,5 +24,10 @@ class Population {
     this.salespeople.forEach((sp) => {
       sp.calculateFitness();
     });
+  }
+
+  // natural selection (genetic algorithm) --> survival of fittest
+  naturalSelection() {
+    nextGen = [];
   }
 }

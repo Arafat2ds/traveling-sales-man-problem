@@ -1,6 +1,7 @@
 class Salesperson {
   constructor() {
     this.route = pointsOnCanvas;
+    this.fitness = 0;
   }
 
   get getRoute() {
@@ -60,6 +61,6 @@ class Salesperson {
     }
     // taking inverse --> smaller distance means higher fitness
     // squaring routeDist --> increases weight of shorter path
-    let fitness = 1.0 / (routeDist * routeDist);
+    fitness = 1.0 / (routeDist * routeDist);
   }
 }

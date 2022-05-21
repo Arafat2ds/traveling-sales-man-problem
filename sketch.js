@@ -1,22 +1,28 @@
-// list of all point objects on currently displayed
+const NUMBER_OF_POINTS = 10;
+const DEFAULT_PATH_COLOR = "rgba(0,0,0,0.2)";
 let pointsOnCanvas = [];
-const numberOfPoints = 10;
-const defaultPathColor = "rgba(0,0,0,0.2)";
+let allowNextGeneration = false;
+let ppn;
 
 function setup() {
   let myCanvas = createCanvas(1000, 600);
   myCanvas.parent("container");
-  generatePoints(numberOfPoints);
+  generateConfig(NUMBER_OF_POINTS);
 }
 
-function draw() {}
+function draw() {
+  if (allowNextGeneration) {
+    // implement genetic algorithm
+    ppn.calculateFitnesses();
+  }
+}
 
-function generatePoints() {
+function generateConfig() {
   // clear canvas
   clear();
   // generate X number of points
   const canvasPadding = 25;
-  for (let i = 0; i < numberOfPoints; i++) {
+  for (let i = 0; i < NUMBER_OF_POINTS; i++) {
     const randX = random(canvasPadding, width - canvasPadding);
     const randY = random(canvasPadding, height - canvasPadding);
     // differentiate the starting point
@@ -37,5 +43,18 @@ function generatePoints() {
   ppn = new Population(10);
   ppn.randomizeAllRoutes();
   ppn.drawAllPaths();
-  ppn.calculateFitnesses();
+}
+
+function toggleEvolution() {
+  // CSS stuff changing the style of the button and switching true/false
+  let btn = document.getElementById("start-btn");
+  if (!allowNextGeneration) {
+    btn.innerHTML = `Pause<span class="material-icons" id="pause-icon">pause</span>`;
+    btn.className = "btn btn-red";
+    allowNextGeneration = true;
+  } else {
+    btn.innerHTML = `Start<span class="material-icons" id="play-icon">play_arrow</span>`;
+    btn.className = "btn btn-blue";
+    allowNextGeneration = false;
+  }
 }

@@ -21,11 +21,15 @@ canvas {
   box-shadow:0 6px 20px 0 rgba(0,0,0,.19);
 }
 
-/* ---------------- GENERATE BUTTON --------------------- */
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* ----------------  BUTTONS --------------------- */
 
 .btn {
   align-items: center;
-  background-color: #6D8B74;
   border: 1px solid transparent;
   border-radius: .25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
@@ -38,7 +42,7 @@ canvas {
   font-weight: 600;
   justify-content: center;
   line-height: 1.25;
-  margin: 1.5rem;
+  margin: 2rem;
   min-height: 3rem;
   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
   position: relative;
@@ -51,10 +55,36 @@ canvas {
   width: auto;
 }
 
+.btn-green {
+  background-color: #6D8B74;
+}
+
+.btn-blue {
+  background-color: #2F8F9D;
+}
+
+.btn-red {
+  background-color: #FF5D5D;
+}
+
 .btn:hover,
 .btn:focus {
-  background-color: #80a388;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.btn-green:hover,
+.btn-green:focus {
+  background-color: #80a388;
+}
+
+.btn-blue:hover,
+.btn-blue:focus {
+  background-color: #3BACB6;
+}
+
+.btn-red:hover,
+.btn-red:focus {
+  background-color: #FF8C8C;
 }
 
 .btn:hover {
@@ -62,9 +92,20 @@ canvas {
 }
 
 .btn:active {
-  background-color: #80a388;
   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);
+}
+
+.btn-green:active {
+  background-color: #80a388;
+}
+
+.btn-blue:active {
+  background-color: #3BACB6;
+}
+
+.btn-red:active {
+  background-color: #FF8C8C;
 }
 
 #loop-icon {
