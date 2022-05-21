@@ -1,5 +1,12 @@
 /* ---------------- BASIC LAYOUT --------------------- */
 
+* {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -24,6 +31,15 @@ canvas {
 .row {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.row.top {
+  justify-content: space-between;
+}
+
+.row.bottom {
+  justify-content: center;
 }
 
 /* ----------------  BUTTONS --------------------- */
@@ -37,7 +53,6 @@ canvas {
   color: #fff;
   cursor: pointer;
   display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 16px;
   font-weight: 600;
   justify-content: center;
@@ -112,4 +127,10 @@ canvas {
   margin-left: 5px;
 }
 
-/* ---------------- --------------------- */
+/* ---------------- TEXT --------------------- */
+
+.heading {
+  margin: 2rem 1rem;
+  text-align: center;
+  font-size: 2rem;
+}

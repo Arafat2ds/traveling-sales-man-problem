@@ -42,7 +42,8 @@ class Salesperson {
       let p1 = this.route[i - 1];
       let p2 = this.route[i];
       if (this.isBest) {
-        stroke("rgba(204, 255, 204, 0.4)");
+        stroke("rgba(128, 163, 136, 1)");
+        strokeWeight(4);
       } else {
         strokeWeight(1);
         stroke(color);

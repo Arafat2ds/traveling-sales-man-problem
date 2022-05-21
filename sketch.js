@@ -1,29 +1,41 @@
-const NUMBER_OF_POINTS = 10;
-const DEFAULT_PATH_COLOR = "rgba(0,0,0,0.2)";
+const NUMBER_OF_POINTS = 100;
+const POPULATION_COUNT = 10;
+const DEFAULT_PATH_COLOR = "rgba(0,0,0,0.15)";
+const CANVAS_WIDTH_FACTOR = 2 / 3;
+const CANVAS_HEIGHT_FACTOR = 2 / 3;
 let pointsOnCanvas = [];
 let allowNextGeneration = false;
 let ppn;
 
 function setup() {
-  let myCanvas = createCanvas(1000, 600);
+  let myCanvas = createCanvas(
+    CANVAS_WIDTH_FACTOR * windowWidth,
+    CANVAS_HEIGHT_FACTOR * windowHeight
+  );
   myCanvas.parent("container");
+  resizeRows();
   generateConfig(NUMBER_OF_POINTS);
+}
+
+function windowResized() {
+  resizeCanvas(
+    CANVAS_WIDTH_FACTOR * windowWidth,
+    CANVAS_HEIGHT_FACTOR * windowHeight
+  );
+  resizeRows();
+  generateConfig();
 }
 
 function draw() {
   if (allowNextGeneration) {
     // implement genetic algorithm
     ppn.calculateFitnesses();
-    console.log("PREV GEN: ", ppn.salespeople);
     ppn.naturalSelection();
     ppn.mutateAll();
-    console.log("NEXT GEN: ", ppn.salespeople);
-    console.log("GEN: ", ppn.generationCounter);
     clear();
     drawPoints();
     ppn.drawAllPaths();
   }
-
   updateInfo();
 }
 
@@ -42,7 +54,7 @@ function generateConfig() {
   drawPoints();
 
   // instantiate population for current config
-  ppn = new Population(10);
+  ppn = new Population(POPULATION_COUNT);
   ppn.randomizeAllRoutes();
   ppn.drawAllPaths();
 }
@@ -66,13 +78,32 @@ function drawPoints() {
     // differentiate the starting point
     if (i == 0) {
       stroke("#D32F2F");
-      strokeWeight(10);
+      strokeWeight(12);
     } else {
       stroke("#000");
-      strokeWeight(6);
+      strokeWeight(10);
     }
     pointsOnCanvas[i].display();
   }
 }
 
-function updateInfo() {}
+function resizeRows() {
+  // resize main content row
+  let rows = document.getElementsByClassName("row");
+  rows.forEach((row) => {
+    row.style.width = `${CANVAS_WIDTH_FACTOR * 100}%`;
+  });
+}
+
+function updateInfo() {
+  let genCounter = document.getElementById("gen-counter");
+  let distCounter = document.getElementById("dist-counter");
+  let salespeopleCounter = document.getElementById("sp-counter");
+  genCounter.innerText = ppn.generationCounter;
+  if (ppn.bestFitness == 0) {
+    distCounter.innerText = 0;
+  } else {
+    distCounter.innerText = Math.floor(1.0 / ppn.bestFitness);
+  }
+  salespeopleCounter.innerText = POPULATION_COUNT;
+}
