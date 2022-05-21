@@ -14,6 +14,9 @@ function draw() {
   if (allowNextGeneration) {
     // implement genetic algorithm
     ppn.calculateFitnesses();
+    ppn.naturalSelection();
+    ppn.mutateAll();
+    // console.log(ppn.generationCounter, ": ", ppn.totalFitness);
   }
 }
 

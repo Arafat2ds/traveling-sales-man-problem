@@ -8,6 +8,10 @@ class Salesperson {
     return this.route;
   }
 
+  get getFitness() {
+    return this.fitness;
+  }
+
   set setRoute(route) {
     this.route = route;
   }
@@ -60,7 +64,31 @@ class Salesperson {
       );
     }
     // taking inverse --> smaller distance means higher fitness
-    // squaring routeDist --> increases weight of shorter path
-    fitness = 1.0 / (routeDist * routeDist);
+    //! squaring routeDist --> increases weight of shorter path
+    this.fitness = 1.0 / routeDist;
+  }
+
+  // mutate salesperson to provide "genetic variation" through adding a randomization factor
+  mutate() {
+    // probability of mutation occurring
+    const M_RATE = 0.01;
+    for (let i = 0; i < this.route.length; i++) {
+      let mutationChance = Math.random();
+      if (mutationChance < M_RATE) {
+        // randomly shifting one pathway
+        this.shiftRoute();
+        // console.log("MUTATED");
+      }
+    }
+  }
+
+  shiftRoute() {
+    // generate index from 1 to NUM_OF_POINTS
+    let rdx1 = Math.floor(Math.random() * (this.route.length - 1)) + 1;
+    let rdx2 = Math.floor(Math.random() * (this.route.length - 1)) + 1;
+    // swap points
+    let temp = this.route[rdx1];
+    this.route[rdx1] = this.route[rdx2];
+    this.route[rdx2] = temp;
   }
 }
