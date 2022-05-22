@@ -99,9 +99,6 @@ class Population {
         this.bestFitness = maxFitness;
       }
     }
-
-    console.log(1.0 / this.bestFitness);
-
     this.bestSalespersonIndex = maxIndex;
   }
 }

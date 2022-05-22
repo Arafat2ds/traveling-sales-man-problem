@@ -1,11 +1,15 @@
-const NUMBER_OF_POINTS = 100;
-const POPULATION_COUNT = 10;
 const DEFAULT_PATH_COLOR = "rgba(0,0,0,0.15)";
 const CANVAS_WIDTH_FACTOR = 2 / 3;
 const CANVAS_HEIGHT_FACTOR = 2 / 3;
+let numberOfPoints = 10;
+let populationCount = 10;
 let pointsOnCanvas = [];
 let allowNextGeneration = false;
 let ppn;
+let pointCounter;
+let salespeopleCounter;
+let genCounter;
+let distCounter;
 
 function setup() {
   let myCanvas = createCanvas(
@@ -14,7 +18,7 @@ function setup() {
   );
   myCanvas.parent("container");
   resizeRows();
-  generateConfig(NUMBER_OF_POINTS);
+  generateConfig();
 }
 
 function windowResized() {
@@ -36,15 +40,53 @@ function draw() {
     drawPoints();
     ppn.drawAllPaths();
   }
-  updateInfo();
+
+  // HTML stuff --> updating text
+  // disable editing of population size and number of points variables while "evolution" occurring
+  pointCounter = document.getElementById("pt-counter");
+  salespeopleCounter = document.getElementById("sp-counter");
+  if (allowNextGeneration) {
+    pointCounter.disabled = true;
+    salespeopleCounter.disabled = true;
+  } else {
+    pointCounter.disabled = false;
+    salespeopleCounter.disabled = false;
+  }
+
+  // update population size and number of point variables to content
+  numberOfPoints = pointCounter.value;
+  populationCount = salespeopleCounter.value;
+
+  // update generation and best distance counters as they change
+  genCounter = document.getElementById("gen-counter");
+  distCounter = document.getElementById("dist-counter");
+  genCounter.innerText = ppn.generationCounter;
+  if (ppn.bestFitness == 0) {
+    distCounter.innerText = 0;
+  } else {
+    distCounter.innerText = Math.floor(1.0 / ppn.bestFitness);
+  }
 }
 
 function generateConfig() {
   // clear canvas
   clear();
+
+  // validation for population / points variables
+  if (numberOfPoints < 2) {
+    numberOfPoints = 2;
+    pointCounter.value = numberOfPoints;
+  }
+
+  if (populationCount < 1) {
+    populationCount = 1;
+    salespeopleCounter.value = populationCount;
+  }
+
   // generate X number of points
+  pointsOnCanvas = [];
   const canvasPadding = 25;
-  for (let i = 0; i < NUMBER_OF_POINTS; i++) {
+  for (let i = 0; i < numberOfPoints; i++) {
     const randX = random(canvasPadding, width - canvasPadding);
     const randY = random(canvasPadding, height - canvasPadding);
     let pt = new Point(i, randX, randY);
@@ -54,7 +96,7 @@ function generateConfig() {
   drawPoints();
 
   // instantiate population for current config
-  ppn = new Population(POPULATION_COUNT);
+  ppn = new Population(populationCount);
   ppn.randomizeAllRoutes();
   ppn.drawAllPaths();
 }
@@ -93,17 +135,4 @@ function resizeRows() {
   rows.forEach((row) => {
     row.style.width = `${CANVAS_WIDTH_FACTOR * 100}%`;
   });
-}
-
-function updateInfo() {
-  let genCounter = document.getElementById("gen-counter");
-  let distCounter = document.getElementById("dist-counter");
-  let salespeopleCounter = document.getElementById("sp-counter");
-  genCounter.innerText = ppn.generationCounter;
-  if (ppn.bestFitness == 0) {
-    distCounter.innerText = 0;
-  } else {
-    distCounter.innerText = Math.floor(1.0 / ppn.bestFitness);
-  }
-  salespeopleCounter.innerText = POPULATION_COUNT;
 }
