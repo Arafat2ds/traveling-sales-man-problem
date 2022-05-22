@@ -4,7 +4,7 @@ class Population {
   generationCounter = 1;
   bestSalespersonIndex;
   bestFitness = 0;
-  bestSalesperson;
+  bestFitnessGen;
 
   constructor(size) {
     for (let i = 0; i < size; i++) {
@@ -97,6 +97,7 @@ class Population {
 
       if (maxFitness > this.bestFitness) {
         this.bestFitness = maxFitness;
+        this.bestFitnessGen = this.generationCounter;
       }
     }
     this.bestSalespersonIndex = maxIndex;

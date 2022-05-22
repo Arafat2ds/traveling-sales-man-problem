@@ -1,6 +1,7 @@
 const DEFAULT_PATH_COLOR = "rgba(0,0,0,0.15)";
-const CANVAS_WIDTH_FACTOR = 2 / 3;
+const CANVAS_WIDTH_FACTOR = 3 / 4;
 const CANVAS_HEIGHT_FACTOR = 2 / 3;
+const STROKE_WEIGHT_POINT = 12;
 let numberOfPoints = 10;
 let populationCount = 10;
 let pointsOnCanvas = [];
@@ -65,7 +66,9 @@ function draw() {
   if (ppn.bestFitness == 0) {
     distCounter.innerText = 0;
   } else {
-    distCounter.innerText = Math.floor(1.0 / ppn.bestFitness);
+    distCounter.innerText = `${Math.floor(1.0 / ppn.bestFitness)} (Gen: ${
+      ppn.bestFitnessGen
+    })`;
   }
 }
 
@@ -96,6 +99,7 @@ function generateConfig() {
     }
   }
 
+  // display points on canvas
   drawPoints();
 
   // instantiate population for current config
@@ -105,6 +109,20 @@ function generateConfig() {
 
   // disable restart
   keepCurrentConfig = false;
+}
+
+function drawPoints() {
+  for (let i = 0; i < pointsOnCanvas.length; i++) {
+    // differentiate the starting point
+    if (i == 0) {
+      stroke("#D32F2F");
+      strokeWeight(STROKE_WEIGHT_POINT + 2);
+    } else {
+      stroke("#000");
+      strokeWeight(STROKE_WEIGHT_POINT);
+    }
+    pointsOnCanvas[i].display();
+  }
 }
 
 function toggleEvolution() {
@@ -121,18 +139,12 @@ function toggleEvolution() {
   }
 }
 
-function drawPoints() {
-  for (let i = 0; i < pointsOnCanvas.length; i++) {
-    // differentiate the starting point
-    if (i == 0) {
-      stroke("#D32F2F");
-      strokeWeight(12);
-    } else {
-      stroke("#000");
-      strokeWeight(10);
-    }
-    pointsOnCanvas[i].display();
+function restartEvolution() {
+  keepCurrentConfig = true;
+  if (allowNextGeneration) {
+    toggleEvolution();
   }
+  generateConfig();
 }
 
 function resizeRows() {
@@ -141,12 +153,4 @@ function resizeRows() {
   rows.forEach((row) => {
     row.style.width = `${CANVAS_WIDTH_FACTOR * 100}%`;
   });
-}
-
-function restartEvolution() {
-  keepCurrentConfig = true;
-  if (allowNextGeneration) {
-    toggleEvolution();
-  }
-  generateConfig();
 }
