@@ -22,6 +22,6 @@ Our population is represented by "traveling salespeople" who start off by calcul
 
 The same idea illustrated in the survival of the "fittest" is applied to evolve our solving algorithm. Using natural selection as a driving force, the population is expected to become better as the number of generations increase. 
 
-Inheritence is simplified since crossing over of parents is unnecessarily complex for this application. However, the population of the next generation is created through the duplication of "fittest" parents of the previous generation.
+Inheritence is simplified since crossing over of parents is unnecessarily complex for this application. However, the population of the next generation is created through the duplication of "fittest" parents of the previous generation. Higher fitness parents have a higher probability of being selected as templates for the children of the next generation than lower fitness parents. 
 
 Lastly, mutations are conducted through randomization. By mutating the children of the next generation, it allows individuals in the population (salesperson) to find a better, more optimzied path.
