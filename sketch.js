@@ -10,6 +10,7 @@ let pointCounter;
 let salespeopleCounter;
 let genCounter;
 let distCounter;
+let keepCurrentConfig = false;
 
 function setup() {
   let myCanvas = createCanvas(
@@ -83,14 +84,16 @@ function generateConfig() {
     salespeopleCounter.value = populationCount;
   }
 
-  // generate X number of points
-  pointsOnCanvas = [];
-  const canvasPadding = 25;
-  for (let i = 0; i < numberOfPoints; i++) {
-    const randX = random(canvasPadding, width - canvasPadding);
-    const randY = random(canvasPadding, height - canvasPadding);
-    let pt = new Point(i, randX, randY);
-    pointsOnCanvas[i] = pt;
+  // generate X number of points (if not restarting simulation)
+  if (!keepCurrentConfig) {
+    pointsOnCanvas = [];
+    const canvasPadding = 25;
+    for (let i = 0; i < numberOfPoints; i++) {
+      const randX = random(canvasPadding, width - canvasPadding);
+      const randY = random(canvasPadding, height - canvasPadding);
+      let pt = new Point(i, randX, randY);
+      pointsOnCanvas[i] = pt;
+    }
   }
 
   drawPoints();
@@ -99,6 +102,9 @@ function generateConfig() {
   ppn = new Population(populationCount);
   ppn.randomizeAllRoutes();
   ppn.drawAllPaths();
+
+  // disable restart
+  keepCurrentConfig = false;
 }
 
 function toggleEvolution() {
@@ -135,4 +141,12 @@ function resizeRows() {
   rows.forEach((row) => {
     row.style.width = `${CANVAS_WIDTH_FACTOR * 100}%`;
   });
+}
+
+function restartEvolution() {
+  keepCurrentConfig = true;
+  if (allowNextGeneration) {
+    toggleEvolution();
+  }
+  generateConfig();
 }

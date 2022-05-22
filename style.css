@@ -82,6 +82,10 @@ canvas {
   background-color: #FF5D5D;
 }
 
+.btn-orange {
+  background-color: #FF7F3F;
+}
+
 .btn:hover,
 .btn:focus {
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
@@ -100,6 +104,11 @@ canvas {
 .btn-red:hover,
 .btn-red:focus {
   background-color: #FF8C8C;
+}
+
+.btn-orange:hover,
+.btn-orange:focus {
+  background-color: #ffa375;
 }
 
 .btn:hover {
@@ -121,6 +130,10 @@ canvas {
 
 .btn-red:active {
   background-color: #FF8C8C;
+}
+
+.btn-orange:active {
+  background-color: #ffa375;
 }
 
 #loop-icon {
