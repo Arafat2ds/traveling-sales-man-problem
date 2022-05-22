@@ -1,6 +1,6 @@
 # Traveling Salesperson Problem Visualization
 
-View it [here](https://shaurya-sarma.github.io/traveling-sales-man-problem/).
+View it here: [https://shaurya-sarma.github.io/traveling-sales-man-problem/](https://shaurya-sarma.github.io/traveling-sales-man-problem/)
 
 This project is an interactive visualization of the Traveling Salesperson Problem that attempts to find the most optimized path using a genetic algorithm. Feel free to edit the "cities" and "salespeople" fields. 
 
