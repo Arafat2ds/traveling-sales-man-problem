@@ -2,7 +2,7 @@
 
 View it [here](https://shaurya-sarma.github.io/traveling-sales-man-problem/).
 
-This project is an interactive visualization of the Traveling Salesperson Problem that attempts to find the most optimized path using a genetic algorithm. It is mostly designed to be viewed on computer devices like desktops or laptops (although some tablets may be fine)
+This project is an interactive visualization of the Traveling Salesperson Problem that attempts to find the most optimized path using a genetic algorithm. Feel free to edit the "cities" and "salespeople" fields. 
 
 ## What is the Traveling Salesperson Problem (TSP) ?
 
