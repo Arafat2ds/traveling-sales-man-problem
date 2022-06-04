@@ -1,7 +1,7 @@
 const DEFAULT_PATH_COLOR = "rgba(0,0,0,0.15)";
-const CANVAS_WIDTH_FACTOR = 3 / 4;
-const CANVAS_HEIGHT_FACTOR = 2 / 3;
+const CANVAS_HEIGHT_FACTOR = 0.6;
 const STROKE_WEIGHT_POINT = 12;
+let canvas_margin = 100;
 let numberOfPoints = 10;
 let populationCount = 10;
 let pointsOnCanvas = [];
@@ -12,23 +12,22 @@ let salespeopleCounter;
 let genCounter;
 let distCounter;
 let keepCurrentConfig = false;
+let inputFields = document.getElementsByClassName("input");
 
 function setup() {
   let myCanvas = createCanvas(
-    CANVAS_WIDTH_FACTOR * windowWidth,
+    windowWidth - canvas_margin * 2,
     CANVAS_HEIGHT_FACTOR * windowHeight
   );
   myCanvas.parent("container");
-  resizeRows();
   generateConfig();
 }
 
 function windowResized() {
   resizeCanvas(
-    CANVAS_WIDTH_FACTOR * windowWidth,
+    windowWidth - canvas_margin * 2,
     CANVAS_HEIGHT_FACTOR * windowHeight
   );
-  resizeRows();
   generateConfig();
 }
 
@@ -70,6 +69,8 @@ function draw() {
       ppn.bestFitnessGen
     })`;
   }
+
+  resizeInput();
 }
 
 function generateConfig() {
@@ -147,10 +148,20 @@ function restartEvolution() {
   generateConfig();
 }
 
-function resizeRows() {
-  // resize main content row
-  let rows = document.getElementsByClassName("row");
-  rows.forEach((row) => {
-    row.style.width = `${CANVAS_WIDTH_FACTOR * 100}%`;
+function resizeInput() {
+  inputFields.forEach((field) => {
+    field.style.width = field.value.length + "ch";
   });
 }
+
+const mediaQuery = window.matchMedia("(max-width: 850px)");
+
+function smallScreenChange(e) {
+  if (e.matches) {
+    canvas_margin = 50;
+  } else {
+    canvas_margin = 100;
+  }
+}
+
+mediaQuery.addEventListener("change", smallScreenChange);

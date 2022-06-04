@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="libraries/p5.js"></script>
     <script src="sketch.js" type="text/javascript"></script>
     <script src="Point.js"></script>
@@ -17,14 +20,18 @@
     <main>
       <h1 class="title">TSP Visualization</h1>
       <div class="row top">
-        <h2 class="heading">Generations: <span id="gen-counter"></span></h2>
-        <h2 class="heading">Cities: <input title="number of points" type="number" min="2" max="100000" value="10" onblur="generateConfig()" id="pt-counter"></h2>
-        <h2 class="heading">Salespeople: <input title="number of salespeople" type="number" min="1" max="100000" value="10" onblur="generateConfig()" id="sp-counter"></h2>
-        <h2 class="heading">Shortest Dist: <span id="dist-counter"></span></h2>
+        <div class = "left">
+          <h2 class="heading">Generations: <span id="gen-counter"></span></h2>
+          <h2 class="heading">Shortest Dist: <span id="dist-counter"></span></h2>
+        </div>
+        <div class = "right">
+          <h2 class="heading">Cities: <input class="input" title="number of points" type="number" min="2" max="100000" value="10" onblur="generateConfig()" id="pt-counter"></h2>
+          <h2 class="heading">Salespeople: <input class="input" title="number of salespeople" type="number" min="1" max="100000" value="10" onblur="generateConfig()" id="sp-counter"></h2>
+        </div>
       </div>  
       <div id="container""></div>
       <div class="row bottom">
-        <button class="btn btn-green" id="generate-btn"type="button" onclick="generateConfig()">Generate<span class="material-icons" id="loop-icon">loop</span></button>
+        <button class="btn btn-green" id="generate-btn"type="button" onclick="generateConfig()">Generate<span class="material-icons" id="add-icon">add</span></button>
         <button class="btn btn-blue" id="start-btn" type="button" onclick="toggleEvolution()">Start<span class="material-icons" id="play-icon">play_arrow</span></button>
         <button class="btn btn-orange" id="restart-btn" type="button" onclick="restartEvolution()">Restart<span class="material-icons" id="restart-icon">restart_alt</span></button>
       </div>
